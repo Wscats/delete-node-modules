@@ -10,7 +10,7 @@
 	"version": "0.0.1",
 	"publisher": "Wscats",
 	"icon": "logo/index.jpg",
-	"homepage": "https://github.com/Wscats/compile-hero",
+	"homepage": "https://github.com/Wscats/delete-node-modules",
 	"preview": true,
 	"engines": {
 		"vscode": "^1.45.0"
@@ -19,49 +19,52 @@
 		"Other"
 	],
 	"keywords": [
+		"node_modules",
+		"package.json",
 		"delete",
-		"clean",
-		"node_modules"
+		"clean"
 	],
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/Wscats/compile-hero/issues/new"
+		"url": "https://github.com/Wscats/delete-node-modules/issues/new"
 	},
 	"activationEvents": [
-		"onCommand:delete-node-modules.helloWorld",
 		"onCommand:delete-node-modules.deleteNodeModules"
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Wscats/compile-hero"
+		"url": "https://github.com/Wscats/delete-node-modules"
 	},
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [{
-				"command": "delete-node-modules.helloWorld",
-				"title": "Hello World"
-			},
+		"commands": [
 			{
 				"command": "delete-node-modules.deleteNodeModules",
 				"title": "Delete Node Modules"
 			}
 		],
 		"menus": {
-			"explorer/context": [{
-				"command": "delete-node-modules.deleteNodeModules",
-				"group": "delete-node-modules",
-				"when": "resourceFilename =~ /node_modules/"
-			}],
-			"editor/context": [{
-				"command": "delete-node-modules.deleteNodeModules",
-				"group": "delete-node-modules",
-				"when": "resourceFilename =~ /node_modules/"
-			}],
-			"editor/title/context": [{
-				"command": "delete-node-modules.deleteNodeModules",
-				"group": "delete-node-modules",
-				"when": "resourceFilename =~ /node_modules/"
-			}]
+			"explorer/context": [
+				{
+					"command": "delete-node-modules.deleteNodeModules",
+					"group": "delete-node-modules",
+					"when": "resourceFilename =~ /node_modules/"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "delete-node-modules.deleteNodeModules",
+					"group": "delete-node-modules",
+					"when": "resourceFilename =~ /node_modules/"
+				}
+			],
+			"editor/title/context": [
+				{
+					"command": "delete-node-modules.deleteNodeModules",
+					"group": "delete-node-modules",
+					"when": "resourceFilename =~ /node_modules/"
+				}
+			]
 		}
 	},
 	"scripts": {

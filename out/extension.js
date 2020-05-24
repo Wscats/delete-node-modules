@@ -4,6 +4,8 @@ exports.deactivate = exports.activate = void 0;
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
+const rimraf = require('rimraf');
+const { exec } = require('child_process');
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
@@ -16,12 +18,26 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('delete-node-modules.helloWorld', () => {
         // The code you place here will be executed every time your command is executed
         // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from delete-node-modules123123!');
+        vscode.window.showInformationMessage('Hello World from delete-node-modules!');
     });
     let deleteNodeModules = vscode.commands.registerCommand("delete-node-modules.deleteNodeModules", (path) => {
         // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from delete-node-modules!');
-        console.log(path);
+        rimraf(path.fsPath, (data) => {
+            if (!data) {
+                // npm cache clean
+                vscode.window.showInformationMessage('Delete Node Modules Succeeded!');
+                exec('npm cache clean', (err, stdout, stderr) => {
+                    if (err) {
+                        console.error('clean cache failed');
+                        return;
+                    }
+                    console.error('clean cache succeeded');
+                });
+            }
+            else {
+                vscode.window.showInformationMessage('Delete Node Modules Failed!');
+            }
+        });
     });
     context.subscriptions.push(deleteNodeModules);
     context.subscriptions.push(disposable);

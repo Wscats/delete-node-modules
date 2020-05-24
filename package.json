@@ -10,7 +10,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:delete-node-modules.helloWorld"
+		"onCommand:delete-node-modules.helloWorld",
+		"onCommand:delete-node-modules.deleteNodeModules"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -18,9 +19,34 @@
 			{
 				"command": "delete-node-modules.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "delete-node-modules.deleteNodeModules",
+				"title": "Delete Node Modules"
 			}
-		]
+		],
+		"menus": {
+			"explorer/context": [
+			  {
+				"command": "delete-node-modules.deleteNodeModules",
+				"group": "delete-node-modules"
+			  }
+			],
+			"editor/context": [
+			  {
+				"command": "delete-node-modules.deleteNodeModules",
+				"group": "delete-node-modules"
+			  }
+			],
+			"editor/title/context": [
+			  {
+				"command": "delete-node-modules.deleteNodeModules",
+				"group": "delete-node-modules"
+			  }
+			]
+		}
 	},
+	
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",

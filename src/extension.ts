@@ -17,11 +17,21 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from delete-node-modules!');
+		vscode.window.showInformationMessage('Hello World from delete-node-modules123123!');
 	});
 
+	let deleteNodeModules = vscode.commands.registerCommand(
+		"delete-node-modules.deleteNodeModules",
+		(path) => {
+			// Display a message box to the user
+		vscode.window.showInformationMessage('Hello World from delete-node-modules!');
+			console.log(path);
+		}
+	);
+
+	context.subscriptions.push(deleteNodeModules);
 	context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

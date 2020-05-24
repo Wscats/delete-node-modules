@@ -1,21 +1,22 @@
 {
 	"name": "delete-node-modules",
 	"displayName": "Delete Node Modules",
-	"description": "Simple plugin for VS Code that allows you to quickly delete your project's node_modules directory.",
+	"description": "✂️ Simple extension for Visual Studio Code that allows you to quickly delete your project's node_modules directory.",
 	"author": {
 		"name": "Eno Yao",
 		"email": "kalone.cool@gmail.com",
 		"url": "https://github.com/Wscats"
 	},
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "Wscats",
-	"icon": "logo/index.jpg",
+	"icon": "logo/index.png",
 	"homepage": "https://github.com/Wscats/delete-node-modules",
 	"preview": true,
 	"engines": {
 		"vscode": "^1.45.0"
 	},
 	"categories": [
+		"Extension Packs",
 		"Other"
 	],
 	"keywords": [
@@ -68,6 +69,7 @@
 		}
 	},
 	"scripts": {
+		"build": "vsce package",
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"lint": "eslint src --ext ts",

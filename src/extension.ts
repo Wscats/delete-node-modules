@@ -48,8 +48,11 @@ export function activate(context: vscode.ExtensionContext) {
   let usePathToDeleteNodeModulesCommand = vscode.commands.registerCommand(
     "delete-node-modules.usePathToDeleteNodeModulesCommand",
     (path) => {
-      // usePathToDeleteNodeModules(path);
-      deleteAllNodeModulesInFolder(path.fsPath)
+      if (path.fsPath.slice(-12) === 'node_modules') {
+        usePathToDeleteNodeModules(path);
+      } else {
+        deleteAllNodeModulesInFolder(path.fsPath);
+      }
     }
   );
 

@@ -18,6 +18,10 @@ Then, all contents in the node_modules folder will be cleared.
 
 <img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/1.gif">
 
+Or click delete in the parent folder menu to delete all `node_modules` folders in the subfolder.
+
+<img src="./screenshot/2.png">
+
 # Thanks
 
 If you think it's useful, you can leave us a [message and like](https://marketplace.visualstudio.com/items?itemName=Wscats.delete-node-modules&ssr=false#review-details) it, Your support is our driving force😀

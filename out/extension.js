@@ -43,8 +43,12 @@ function usePathToDeleteNodeModules(path) {
 function activate(context) {
     console.log('Congratulations, your extension "delete-node-modules" is now active!');
     let usePathToDeleteNodeModulesCommand = vscode.commands.registerCommand("delete-node-modules.usePathToDeleteNodeModulesCommand", (path) => {
-        // usePathToDeleteNodeModules(path);
-        deleteAllNodeModulesInFolder(path.fsPath);
+        if (path.fsPath.slice(-12) === 'node_modules') {
+            usePathToDeleteNodeModules(path);
+        }
+        else {
+            deleteAllNodeModulesInFolder(path.fsPath);
+        }
     });
     context.subscriptions.push(usePathToDeleteNodeModulesCommand);
 }

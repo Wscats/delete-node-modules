@@ -30,7 +30,8 @@
 		"url": "https://github.com/Wscats/delete-node-modules/issues/new"
 	},
 	"activationEvents": [
-		"onCommand:delete-node-modules.deleteNodeModules"
+		"onCommand:delete-node-modules.usePathToDeleteNodeModulesCommand",
+		"onCommand:delete-node-modules.deleteAllNodeModulesInFolderCommand"
 	],
 	"repository": {
 		"type": "git",
@@ -40,30 +41,30 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "delete-node-modules.deleteNodeModules",
+				"command": "delete-node-modules.usePathToDeleteNodeModulesCommand",
 				"title": "Delete Node Modules"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
-					"command": "delete-node-modules.deleteNodeModules",
+					"command": "delete-node-modules.usePathToDeleteNodeModulesCommand",
 					"group": "delete-node-modules",
-					"when": "resourceFilename =~ /node_modules/"
+					"when": "explorerResourceIsFolder == true"
 				}
 			],
 			"editor/context": [
 				{
-					"command": "delete-node-modules.deleteNodeModules",
+					"command": "delete-node-modules.usePathToDeleteNodeModulesCommand",
 					"group": "delete-node-modules",
-					"when": "resourceFilename =~ /node_modules/"
+					"when": "explorerResourceIsFolder == true"
 				}
 			],
 			"editor/title/context": [
 				{
-					"command": "delete-node-modules.deleteNodeModules",
+					"command": "delete-node-modules.usePathToDeleteNodeModulesCommand",
 					"group": "delete-node-modules",
-					"when": "resourceFilename =~ /node_modules/"
+					"when": "explorerResourceIsFolder == true"
 				}
 			]
 		}

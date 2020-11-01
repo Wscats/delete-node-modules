@@ -1,47 +1,59 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 const rimraf = require("rimraf");
 const { exec } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+export function deleteAllNodeModulesInFolder(dir: string) {
+  if (fs.existsSync(dir)) {
+    const files = fs.readdirSync(dir);
+    for (let i = 0; i < files.length; i++) {
+      const newPath = path.join(dir, files[i]);
+      const stat = fs.statSync(newPath);
+      const name = path.basename(newPath);
+      if (stat.isDirectory()) {
+        if (name === 'node_modules') {
+          usePathToDeleteNodeModules({ fsPath: newPath });
+        }
+        deleteAllNodeModulesInFolder(newPath);
+      }
+    }
+  }
+}
+
+function usePathToDeleteNodeModules(path: any) {
+  rimraf(path.fsPath, (data: any) => {
+    if (!data) {
+      vscode.window.showInformationMessage(
+        "Delete Node Modules Succeeded!"
+      );
+      exec("npm cache clean", (err: any, stdout: any, stderr: any) => {
+        if (err) {
+          console.error("clean cache failed");
+          return;
+        }
+        console.error("clean cache succeeded");
+      });
+    } else {
+      vscode.window.showInformationMessage("Delete Node Modules Failed!");
+    }
+  });
+}
+
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
   console.log(
     'Congratulations, your extension "delete-node-modules" is now active!'
   );
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  let deleteNodeModules = vscode.commands.registerCommand(
-    "delete-node-modules.deleteNodeModules",
+  let usePathToDeleteNodeModulesCommand = vscode.commands.registerCommand(
+    "delete-node-modules.usePathToDeleteNodeModulesCommand",
     (path) => {
-      // Display a message box to the user
-      rimraf(path.fsPath, (data: any) => {
-        if (!data) {
-          // npm cache clean
-          vscode.window.showInformationMessage(
-            "Delete Node Modules Succeeded!"
-          );
-          exec("npm cache clean", (err: any, stdout: any, stderr: any) => {
-            if (err) {
-              console.error("clean cache failed");
-              return;
-            }
-            console.error("clean cache succeeded");
-          });
-        } else {
-          vscode.window.showInformationMessage("Delete Node Modules Failed!");
-        }
-      });
+      // usePathToDeleteNodeModules(path);
+      deleteAllNodeModulesInFolder(path.fsPath)
     }
   );
 
-  context.subscriptions.push(deleteNodeModules);
+  context.subscriptions.push(usePathToDeleteNodeModulesCommand);
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

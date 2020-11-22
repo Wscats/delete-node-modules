@@ -6,6 +6,7 @@ const rimraf = require("rimraf");
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const searchNodeModules = require("./search-node-modules");
 function deleteAllNodeModulesInFolder(dir) {
     if (fs.existsSync(dir)) {
         const files = fs.readdirSync(dir);
@@ -51,6 +52,7 @@ function activate(context) {
         }
     });
     context.subscriptions.push(usePathToDeleteNodeModulesCommand);
+    context.subscriptions.push(searchNodeModules);
 }
 exports.activate = activate;
 function deactivate() { }

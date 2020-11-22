@@ -3,6 +3,7 @@ const rimraf = require("rimraf");
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const searchNodeModules = require("./search-node-modules");
 
 export function deleteAllNodeModulesInFolder(dir: string) {
   if (fs.existsSync(dir)) {
@@ -57,6 +58,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(usePathToDeleteNodeModulesCommand);
+  context.subscriptions.push(searchNodeModules);
 }
 
 export function deactivate() { }

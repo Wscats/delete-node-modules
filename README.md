@@ -8,6 +8,12 @@
 
 ✂️ Simple extension for Visual Studio Code that allows you to quickly delete your project's node_modules directory.
 
+# Search Node Modules
+
+Use `searchNodeModules` command to search node_modules folder.
+
+<img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/3.png"/>
+
 # Features
 
 - Select the node_modules folder
@@ -16,11 +22,11 @@
 
 Then, all contents in the node_modules folder will be cleared.
 
-<img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/1.gif">
+<img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/1.gif"/>
 
 Or click delete in the parent folder menu to delete all `node_modules` folders in the subfolder.
 
-<img src="./screenshot/2.png">
+<img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/2.png"/>
 
 # Thanks
 

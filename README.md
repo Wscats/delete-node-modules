@@ -12,7 +12,8 @@
 
 Use `searchNodeModules` command to search node_modules folder.
 
-<img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/3.png"/>
+<!-- <img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/3.png"/> -->
+<img alt="3" src="https://user-images.githubusercontent.com/17243165/100516921-2fc83b00-31c2-11eb-9888-ea7c2cbb2299.png">
 
 # Features
 
@@ -22,11 +23,13 @@ Use `searchNodeModules` command to search node_modules folder.
 
 Then, all contents in the node_modules folder will be cleared.
 
-<img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/1.gif"/>
+<!-- <img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/1.gif"/> -->
+![1](https://user-images.githubusercontent.com/17243165/100516912-23dc7900-31c2-11eb-936b-aeaa3cd23121.gif)
 
 Or click delete in the parent folder menu to delete all `node_modules` folders in the subfolder.
 
-<img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/2.png"/>
+<!-- <img src="https://raw.githubusercontent.com/Wscats/delete-node-modules/master/screenshot/2.png"/> -->
+<img alt="2" src="https://user-images.githubusercontent.com/17243165/100516916-2b038700-31c2-11eb-91ad-91dafb087f80.png">
 
 # Thanks
 

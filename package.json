@@ -13,7 +13,8 @@
   "homepage": "https://github.com/Wscats/delete-node-modules",
   "preview": true,
   "engines": {
-    "vscode": "^1.45.0"
+    "vscode": "^1.45.0",
+    "node": ">=18.0.0"
   },
   "categories": [
     "Extension Packs",
@@ -137,7 +138,10 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint:check": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@types/vscode": "^1.45.0",

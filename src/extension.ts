@@ -22,13 +22,13 @@ export function deleteAllNodeModulesInFolder(dir: string) {
   }
 }
 
-function usePathToDeleteNodeModules(path: any) {
-  rimraf(path.fsPath, (data: any) => {
+function usePathToDeleteNodeModules(path: unknown) {
+  rimraf(path.fsPath, (data: unknown) => {
     if (!data) {
       vscode.window.showInformationMessage(
         "Delete Node Modules Succeeded!"
       );
-      exec("npm cache clean", (err: any, stdout: any, stderr: any) => {
+      exec("npm cache clean", (err: unknown, stdout: unknown, stderr: unknown) => {
         if (err) {
           console.error("clean cache failed");
           return;

@@ -1,39 +1,58 @@
+/**
+ * Delete Node Modules - VSCode Extension.
+ * Allows users to quickly delete or search node_modules directories.
+ *
+ * @author Eno Yao
+ */
+
 import * as vscode from "vscode";
+import * as fs from "fs";
+import * as path from "path";
+import { exec } from "child_process";
+
 const rimraf = require("rimraf");
-const { exec } = require("child_process");
-const fs = require("fs");
-const path = require("path");
 const searchNodeModules = require("./search-node-modules");
 
-export function deleteAllNodeModulesInFolder(dir: string) {
-  if (fs.existsSync(dir)) {
-    const files = fs.readdirSync(dir);
-    for (let i = 0; i < files.length; i++) {
-      const newPath = path.join(dir, files[i]);
-      const stat = fs.statSync(newPath);
-      const name = path.basename(newPath);
-      if (stat.isDirectory()) {
-        if (name === 'node_modules') {
-          usePathToDeleteNodeModules({ fsPath: newPath });
-        }
-        deleteAllNodeModulesInFolder(newPath);
+/**
+ * Recursively find and delete all `node_modules` directories within a folder.
+ *
+ * @param dir - The root directory to scan.
+ */
+export function deleteAllNodeModulesInFolder(dir: string): void {
+  if (!fs.existsSync(dir)) {
+    return;
+  }
+
+  const files = fs.readdirSync(dir);
+  for (const file of files) {
+    const fullPath = path.join(dir, file);
+    const stat = fs.statSync(fullPath);
+    const name = path.basename(fullPath);
+
+    if (stat.isDirectory()) {
+      if (name === "node_modules") {
+        deleteNodeModulesAtPath(fullPath);
       }
+      deleteAllNodeModulesInFolder(fullPath);
     }
   }
 }
 
-function usePathToDeleteNodeModules(path: unknown) {
-  rimraf(path.fsPath, (data: unknown) => {
-    if (!data) {
-      vscode.window.showInformationMessage(
-        "Delete Node Modules Succeeded!"
-      );
-      exec("npm cache clean", (err: unknown, stdout: unknown, stderr: unknown) => {
+/**
+ * Delete a `node_modules` directory at the given path and clean npm cache.
+ *
+ * @param targetPath - The absolute path to the node_modules directory.
+ */
+function deleteNodeModulesAtPath(targetPath: string): void {
+  rimraf(targetPath, (error: Error | null) => {
+    if (!error) {
+      vscode.window.showInformationMessage("Delete Node Modules Succeeded!");
+      exec("npm cache clean", (err, _stdout, _stderr) => {
         if (err) {
           console.error("clean cache failed");
           return;
         }
-        console.error("clean cache succeeded");
+        console.log("clean cache succeeded");
       });
     } else {
       vscode.window.showInformationMessage("Delete Node Modules Failed!");
@@ -41,24 +60,33 @@ function usePathToDeleteNodeModules(path: unknown) {
   });
 }
 
-export function activate(context: vscode.ExtensionContext) {
+/**
+ * Called when the extension is activated.
+ * Registers the delete and search commands.
+ */
+export function activate(context: vscode.ExtensionContext): void {
   console.log(
     'Congratulations, your extension "delete-node-modules" is now active!'
   );
 
-  let usePathToDeleteNodeModulesCommand = vscode.commands.registerCommand(
+  const deleteCommand = vscode.commands.registerCommand(
     "delete-node-modules.usePathToDeleteNodeModulesCommand",
-    (path) => {
-      if (path.fsPath.slice(-12) === 'node_modules') {
-        usePathToDeleteNodeModules(path);
+    (uri: vscode.Uri) => {
+      if (uri.fsPath.endsWith("node_modules")) {
+        deleteNodeModulesAtPath(uri.fsPath);
       } else {
-        deleteAllNodeModulesInFolder(path.fsPath);
+        deleteAllNodeModulesInFolder(uri.fsPath);
       }
     }
   );
 
-  context.subscriptions.push(usePathToDeleteNodeModulesCommand);
+  context.subscriptions.push(deleteCommand);
   context.subscriptions.push(searchNodeModules);
 }
 
-export function deactivate() { }
+/**
+ * Called when the extension is deactivated.
+ */
+export function deactivate(): void {
+  // No cleanup needed
+}
